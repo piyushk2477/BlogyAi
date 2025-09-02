@@ -1,0 +1,97 @@
+<nav
+  class="navbar navbar-expand-lg bg-body-tertiary bg-dark"
+  data-bs-theme="dark"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Blogify</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        
+        <!-- ✅ Only show "Add Blog" to ADMIN users -->
+        <% if (locals.user && locals.user.role === 'ADMIN') { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog/add-new">
+            <i class="bi bi-plus-circle"></i> Add Blog
+          </a>
+        </li>
+        <% } %>
+        
+        <% if (locals.user) { %>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <!-- ✅ Show user's actual name -->
+            <%= locals.user.fullName %>
+            <!-- ✅ Show admin badge -->
+            <% if (locals.user.role === 'ADMIN') { %>
+              <span class="badge bg-warning text-dark ms-1">Admin</span>
+            <% } %>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- ✅ Show admin status in dropdown -->
+            <li><h6 class="dropdown-header">
+              <%= locals.user.role === 'ADMIN' ? 'Administrator' : 'User' %>
+            </h6></li>
+            <li><hr class="dropdown-divider"></li>
+            
+            <!-- ✅ Admin-only options -->
+            <% if (locals.user.role === 'ADMIN') { %>
+            <li><a class="dropdown-item" href="/blog/add-new">
+              <i class="bi bi-plus-circle"></i> Create Blog
+            </a></li>
+            <li><hr class="dropdown-divider"></li>
+            <% } %>
+            
+            <li><a class="dropdown-item" href="/user/logout">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a></li>
+          </ul>
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/signup">Create Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/signin">Sign In</a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<% if (locals.error) { %>
+<div class="container mt-4">
+  <div class="alert alert-danger" role="alert"><%= locals.error %></div>
+</div>
+<% } %>
+
+<!-- ✅ Optional: Show info message for regular users -->
+<% if (locals.user && locals.user.role !== 'ADMIN') { %>
+<div class="container mt-2">
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <i class="bi bi-info-circle"></i>
+    <strong>Note:</strong> Only administrators can create blog posts. You can read and comment on existing blogs.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+<% } %>
