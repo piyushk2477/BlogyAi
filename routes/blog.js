@@ -44,7 +44,7 @@ router.get("/add-new", requireAdmin, (req, res) => {
   });
 });
 
-// ✅ Protected route - Only admins can create blogs
+// ✅ Protected rote - Only admins can create blogs
 router.post("/", requireAdmin, upload.single("coverImage"), async (req, res) => {
   const { title, body } = req.body;
   const blog = await Blog.create({
