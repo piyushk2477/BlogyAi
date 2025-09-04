@@ -1,3 +1,27 @@
+//to change specific file in git
+// git add file1.js file2.html//first go to specific file and then add
+// git commit -m "Updated files"
+// git push
+
+
+//to change all files in git
+// git add .        # Adds all changed files
+// git status       # Check what is staged
+// git commit -m "Your commit message"
+// git push
+
+
+//db.blogs.deleteMany({})//delete all documents
+//db.blogs.drop()//delete collection
+//db.blogs.deleteOne({ _id: ObjectId("64f5e1234567890abcdef123") })
+
+// In MongoDB compass or mongo shell to update a user's role to ADMIN
+// db.users.updateOne(
+//   { email: "your-admin-email@example.com" }, 
+//   { $set: { role: "ADMIN" } }
+// )
+
+require('dotenv').config();
 const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -11,11 +35,11 @@ const blogRoute = require("./routes/blog");
 const { checkForAuthenticationCookie } = require("./middlewares/authentication");
 
 const app = express();
-const PORT = 8001;
+// const PORT = 8000;
 
-mongoose
-  .connect("mongodb://localhost:27017/blogify2")
-  .then(() => console.log("mongodb connected"));
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch(err => console.error("❌ MongoDB error:", err));
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
@@ -40,7 +64,8 @@ app.get("/", async (req, res) => {
 app.use("/user", userRoute);
 app.use("/blog", blogRoute);
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server started on port ${PORT}`);
+// });
 
+module.exports = app;
