@@ -64,13 +64,11 @@
 
         <!-- Author Info -->
         <div class="flex items-center gap-3 mt-8 pt-4 border-t-2 border-black">
-          <img src="<%= blog.createdBy.profileImageURL %>" 
-               alt="<%= blog.createdBy.fullName %>" 
-               class="w-12 h-12 rounded-full border-2 border-black shadow-[3px_3px_0px_black]">
-          <span class="font-bold text-lg"><%= blog.createdBy.fullName %></span>
-        </div>
-      </div>
-
+  <img src="<%= blog.createdBy?.profileImageURL || '/default-avatar.png' %>" 
+       alt="<%= blog.createdBy?.fullName || 'Unknown Author' %>" 
+       class="w-12 h-12 rounded-full border-2 border-black shadow-[3px_3px_0px_black]">
+  <span class="font-bold text-lg"><%= blog.createdBy?.fullName || 'Unknown Author' %></span>
+</div>
       <!-- Comments Section -->
       <div class="bg-white border-2 border-black shadow-[8px_8px_0px_black] 
                   rounded-lg p-6 md:p-8">
@@ -100,19 +98,19 @@
 
         <!-- Show Comments -->
         <div class="space-y-4">
-          <% comments.forEach(comment => { %>
-          <div class="flex items-start gap-3 bg-[#fafafa] border-2 border-black 
-                      p-4 rounded-md shadow-[4px_4px_0px_black]">
-            <img src="<%= comment.createdBy.profileImageURL %>" 
-                 alt="<%= comment.createdBy.fullName %>" 
-                 class="w-10 h-10 rounded-full border-2 border-black">
-            <div>
-              <span class="font-bold"><%= comment.createdBy.fullName %></span>
-              <p class="text-gray-700 whitespace-pre-line"><%= comment.content %></p>
-            </div>
-          </div>
-          <% }) %>
-        </div>
+  <% comments.forEach(comment => { %>
+  <div class="flex items-start gap-3 bg-[#fafafa] border-2 border-black 
+              p-4 rounded-md shadow-[4px_4px_0px_black]">
+    <img src="<%= comment.createdBy?.profileImageURL || '/default-avatar.png' %>" 
+         alt="<%= comment.createdBy?.fullName || 'Unknown User' %>" 
+         class="w-10 h-10 rounded-full border-2 border-black">
+    <div>
+      <span class="font-bold"><%= comment.createdBy?.fullName || 'Unknown User' %></span>
+      <p class="text-gray-700 whitespace-pre-line"><%= comment.content %></p>
+    </div>
+  </div>
+  <% }) %>
+</div>
       </div>
     </div>
 

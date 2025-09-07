@@ -5,9 +5,9 @@
 // git push
 
 // To change all files in git
-// git add .        # Adds all changed files
-// git status       # Check what is staged
-// git commit -m "Your commit message"
+// git add .       
+// git status       
+// git commit -m "clode url added"
 // git push
 //hCtEKmVu0nO6pOFo
 // MongoDB Commands
@@ -17,7 +17,7 @@
 
 // In MongoDB Compass or mongo shell to update a user's role to ADMIN
 // db.users.updateOne(
-//   { email: "john2@gmail.com" },
+//   { email: "kanakdandepiyush@gmail.com" },
 //   { $set: { role: "ADMIN" } }
 // )
 
